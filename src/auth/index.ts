@@ -8,6 +8,16 @@ export const auth = betterAuth({
         schema
     }),
     emailAndPassword: {
-        enabled: true
-    }
+        enabled: true,
+    },
+    // It is recommended to use secure cookies for production
+    // advanced: {
+    //     cookies: {
+    //         session_token: {
+    //             attributes: {
+    //                 secure: process.env.ENVIROMENT === "production"
+    //             }
+    //         },
+    //     }
+    // }
 });

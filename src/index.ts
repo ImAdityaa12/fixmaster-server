@@ -3,8 +3,7 @@ import express, { Request, Response } from "express";
 import { toNodeHandler } from "better-auth/node";
 import { auth } from "./auth";
 import cors from "cors";
-import { fromNodeHeaders } from "better-auth/node";
-
+import customerRouter from "./routes/customerRouter";
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -17,17 +16,12 @@ app.use(
 );
 
 app.all("/api/auth/*splat", toNodeHandler(auth));
+
 // Middleware
 app.use(express.json());
 
 // Routes
-
-app.get("/api/me", async (req, res) => {
-    const session = await auth.api.getSession({
-        headers: fromNodeHeaders(req.headers),
-    });
-    return res.json(session);
-});
+app.use("/customer", customerRouter);
 
 app.get("/", (req: Request, res: Response) => {
     res.send("Hello TypeScript + Express 🚀");
